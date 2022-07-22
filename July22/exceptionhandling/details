@@ -1,0 +1,84 @@
+Exception -- one unavoidable condition due to user given data or resource information is not correct
+stops execution of the program forcefully
+5/0
+Exception handling
+Throwable  -printStackTrace(),getMessage()
+	Exception
+		IOException
+		SQLException
+		ClassNotFoundException 
+		FileNotFoundException
+		InterruptedException
+		IlllegalAccessException
+		RuntimeException
+			ArithmeticException 5/0
+			NullPointerException    
+			NumberFormatException  
+			ArrayIndexOutofBoundsException	int arr[]=new int [3];  arr[3]
+			ClassCasteException
+			InvalidArgumentException
+	
+	Error
+		Stackoverflowerror
+		Virtualmachineerror
+		outofmemoryerror	
+		
+Exceptions-- try, throw, throws, catch, finally	
+try - a block where we are putting statements which can generate exception
+catch- a block which handles exception
+finally - a block which always executes whether exception is thrown or not
+thr0w- throw an exception in object format
+throws= which we use with method to make list of all exceptions
+
+try{}
+catch(){}
+catch(){}
+finally{}
+
+
+
+try{}
+finally{}
+
+
+String s=null;
+System.out.println(s.toUpperCase());-- NullPointerException
+
+
+int num= Integer.parseInt("A101");-- NumberFormatException
+
+
+
+
+class Employee{
+}
+
+
+Employe e=new Employe();- ClassNotFoundException
+
+
+Scanner sc=new Scanner(System.in);
+int a= sc.nextInt();          101
+
+
+
+class Person{}
+
+class Student extends Person{}
+
+class Vehicle{}
+
+Student student =new Student();
+Person p=(Person) student;
+Vehicle v=(Vehicle) student;
+
+
+
+
+
+
+
+
+
+
+	
