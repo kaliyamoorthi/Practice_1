@@ -1,0 +1,185 @@
+Array of similar type of values 
+int m1,m2,m3,m4;
+int marks[5];//c, c++
+int arr[]={}
+int arr[]={7,8,9};
+arr.length--> 3
+arr[1]-->8
+
+
+int[] arr=new int[] {}
+int arr[]=new int[]{}
+int arr[]=new int[]{6,7,8};
+
+
+int a[]=new int[size of array]
+int a[]=new int[3];
+
+
+
+int [][]arr={{1,2,3},{4,5}}
+
+int arr[][]=new int[3][];   
+arr[0]=new int [4];
+arr[1]=new int [2];
+arr[2]=new int[3];
+
+class LinkedList{
+	Node head;
+	
+	static class Node{
+		String name;
+		Node next;
+	}
+
+}
+
+int arr[]={2,3,-5, 8,-13}
+
+int ans[]={-5,-13,2,3,,8}
+
+for(int i=0,j=0;i<arr.length;i++){
+if(arr[i]<0){
+ans[j]=arr[i];
+j++;
+}
+
+
+for(int i=0;i<arr.length;i++){
+if(arr[i]>=0){
+ans[j]=arr[i];
+j++;
+}
+
+
+
+Array Rotation
+array={1,3,5,7,9} k=2
+9 1 3 5 7
+7 9 1 3 5
+
+
+
+
+public class ArrayRR {
+    public static void main(String[] args) {
+        int arr[]= {7,6,5,4,3,2,1};
+        int k=5;
+        int result[] = new int[arr.length];
+        while(k!=0)
+        {
+            
+        for(int i=1;i<arr.length;i++) 
+        {
+            result[0] = arr[arr.length-1];
+            result[i] = arr[i-1];
+        }
+        
+        2 1 7 6 5 4 3 
+        for(int i=0;i<arr.length;i++) 
+        {
+            arr[i]=result[i];
+        }
+          k--;
+        }
+        for(int i=0;i<arr.length;i++) 
+        {
+            System.out.println(result[i]);
+        }
+}}
+
+
+
+
+package rotaion
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+ 
+class Array_Rotation
+{
+static void RightRotate(int a[],
+                        int n, int k)
+{
+ k=k%n;
+ 
+    for(int i = 0; i < n; i++)
+    {
+        if(i<k)
+        {
+ System.out.print(a[n + i - k]
+                             + " ");
+        }
+        else
+        {
+            
+            System.out.print(a[i - k]
+                             + " ");
+        }
+    }
+    System.out.println();
+}
+     
+public static void main(String args[])
+{
+    int Array[] = {1, 2, 3, 4, 5};
+    int N = Array.length;
+ 
+    int K = 2;
+    RightRotate(Array, N, K);
+ 
+}
+}
+
+
+last=arr{arr.length-1)                               
+ for(j=arr.length-1;j>0;j--)                         
+ arr(j)=arr(j-1)                               
+ arr(0)=arr(last);                              
+ print the array after rotation
+
+
+package Module;
+import java.io.*;
+     
+    public class rotation {
+         
+        public static void rotate(int arr[], int d, int n)
+        {
+            int p = 1;
+            while (p <= d) {
+                int last = arr[0];
+                for (int i = 0; i < n - 1; i++) {
+                    arr[i] = arr[i + 1];
+                }
+                arr[n - 1] = last;
+                p++;
+            }
+     
+            for (int i = 0; i < n; i++) {
+                System.out.print(arr[i] + " ");
+            }
+        }
+         
+        public static void main(String[] args)
+        {
+            int arr[] = { 1,3, 5, 7, 9 };
+            int N = arr.length;
+            
+            int d = 2;
+     
+            
+            rotate(arr, d, N);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
