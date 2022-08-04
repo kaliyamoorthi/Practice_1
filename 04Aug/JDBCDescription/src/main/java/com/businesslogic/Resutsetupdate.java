@@ -2,6 +2,10 @@ package com.businesslogic;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,152 +19,58 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Resutsetupdate")
 public class Resutsetupdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Resutsetupdate() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 try {
-
-
-			  /*
-
-			    * An updatable result set allows modification to data in a table through the result set. 
-
-			    * If the database does not support updatable result sets, the result sets returned from 
-
-			    * executeQuery() will be read-only. To get updatable results, the Statement object used 
-
-			    * to create the result sets must have the concurrency type ResultSet.CONCUR_UPDATABLE. 
-
-			    * The query of an updatable result set must specify the primary key as one of the selected 
-
-			    * columns and select from only one table.
-
-			    */
-Connection connection=Datatabase
-PrintWriter out=response.getWriter();
-			  // Create a statement that will return updatable result sets
-
-			  Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
-
-			  // Primary key test_col must be specified so that the result set is updatable
-
-			  ResultSet results = statement.executeQuery("SELECT test_col FROM test_table");
-
-
-			  out.println("Table data prior results handling... ");
-
-
-			  // Display table data
-
-			  while (results.next()) {
-
-
-			    // Get the data from the current row using the column name - column data are in the VARCHAR format
-
-			    String data = results.getString("test_col");
-
-			    out.println("Fetching data by column name for row " + results.getRow() + " : " + data);
-
-
-			  }
-
-			  
-
-			  // An updatable result supports a row called the "insert row". It is a buffer for holding the values of a new row
-
-			  results.moveToInsertRow();
-
-
-			  // Set values for the new row.
-
-			  results.updateString("test_col", "inserted_test_value");
-
-
-			  // Insert the new row
-
-			  results.insertRow();
-
-
-			  // Move cursor to the third row
-
-			  results.absolute(3);
-
-
-			  // Update the value of column test_col on that row
-
-			  results.updateString("test_col", "updated_test_value");
-
-
-			  // Update the row; if auto-commit is enabled, update is committed
-
-			  results.updateRow();
-
-
-			  // Discard the update to the row we could use 
-
-			  // results.cancelRowUpdates();
-
-
-			  // Delete the fifth row
-
-			  results.absolute(5);
-
-			  results.deleteRow();
-
-
-			  // Retrieve the current values of the row from the database
-
-			  results.refreshRow();
-
-
-			  out.println("Table data after results handling... ");
-
-
-			  results.beforeFirst();
-
-
-			  // Display table data
-
-			  while (results.next()) {
-
-
-			    // Get the data from the current row using the column name - column data are in the VARCHAR format
-
-			    String data = results.getString("test_col");
-
-			    out.println("Fetching data by column name for row " + results.getRow() + " : " + data);
-
-
-			  }
-
-
-			} catch (SQLException e) {
-
-			    out.println("Error while operating on updatable ResultSet " + e.getMessage());
-
-			}
-
-			  }
-			}
+	public Resutsetupdate() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
+		PrintWriter out = response.getWriter();
+		try {
+			Connection con = DatabaseConnection.getMyConnection();
+			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+			ResultSet rs = stmt.executeQuery("SELECT S.* FROM student S");
+			out.println("Before Changes All Records...<br>");
+			
+			out.println("Rollno  Name<br>");
+			while (rs.next()) {
+				out.println(rs.getInt(1) + "      " + rs.getString(2) + "<br>");
+			}
+			
+			
+			// inserting a new row
+			rs.moveToInsertRow();
+			rs.updateInt("rollno", 16);
+			rs.updateString("name", "Kareena");
+			rs.insertRow();
+
+			// updating 2nd row – changing name to Seetha
+			rs.absolute(2);
+			rs.updateString("name", "Seetha");
+			rs.updateRow();
+
+			out.println("After Changes All Records...<br>");
+			rs.beforeFirst();// to move cursor in begining of resultset
+			
+			
+			while (rs.next()) {
+				out.println(rs.getInt(1) + "      " + rs.getString(2) + "<br>");
+			}
+		} catch (Exception e) {
+			out.println(e);
+			e.printStackTrace();
+		}
+
+	}
 }
